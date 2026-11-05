@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "daily-sales-etl"
+version = "0.1.0"
+description = "A small, idempotent CSV-to-PostgreSQL sales ETL pipeline"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "pandas>=2.2,<3.0",
+  "psycopg[binary]>=3.2,<4.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<9.0",
+  "pytest-cov>=6.0,<7.0",
+]
+
+[project.scripts]
+daily-sales-etl = "daily_sales_etl.cli:main"
+generate-sales-data = "daily_sales_etl.generator:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers"
+testpaths = ["tests"]
+markers = [
+  "integration: requires a running PostgreSQL instance and TEST_DATABASE_URL",
+]
+
