@@ -1,5 +1,9 @@
 # Daily Sales ETL
 
+## Verified PostgreSQL run
+
+The PostgreSQL 16 integration test loaded **3 sales rows** on the first run and **0 new rows** on replay. The sales table kept **3 rows** and the audit table recorded `[3, 0]`. A separate pipeline test verifies that an invalid quantity is quarantined with the reason `quantity must be a positive integer`. [Passing GitHub Actions run](https://github.com/tyrada/daily-sales-etl/actions/runs/42114060477).
+
 A small portfolio project that turns one daily sales CSV into clean, auditable PostgreSQL records. It demonstrates deterministic data generation, schema and row validation, quarantine handling, idempotent loading, transaction boundaries, and operational audit records without an orchestration framework.
 
 ## Problem and design
